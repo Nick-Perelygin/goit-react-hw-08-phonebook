@@ -1,13 +1,49 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-axios.defaults.baseURL = 'https://649c8e1b0480757192385644.mockapi.io/api/v1';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
-export const fetchContacts = createAsyncThunk(
-    'contacts/fetchAll',
+const token = {
+    set(token){
+        axios.defaults.headers.common.Authorization = `Bearer ${token}`
+    },
+    unset(){
+        axios.defaults.headers.common.Authorization = ''
+    }
+}
+
+export const fetchSignup = createAsyncThunk(
+    'users/signup',
+    async ({name, email, password}, {rejectWithValue}) => {
+        try {
+            const response = await axios.post('/users/signup', {name, email, password});
+            token.set(response.data.token)
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
+export const fetchLogin = createAsyncThunk(
+    'users/login',
+    async ({email, password}, {rejectWithValue}) => {
+        try {
+            const response = await axios.post('/users/login', {email, password});
+            token.set(response.data.token)
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.message)
+        }
+    }
+)
+
+export const fetchLogout = createAsyncThunk(
+    'users/logout',
     async (_, {rejectWithValue}) => {
         try {
-            const response = await axios.get('/contacts');
+            const response = await axios.post('/users/logout');
+            token.unset()
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message)
@@ -15,26 +51,19 @@ export const fetchContacts = createAsyncThunk(
     }
 )
 
-export const addContact = createAsyncThunk(
-    'contacts/addContact',
-    async ({name, id, phone}, {rejectWithValue}) => {
-        try {
-            const response = await axios.post('/contacts', {name, id, phone});
-            return response.data;
-        } catch (error) {
-            return rejectWithValue(error.message)
+export const fetchCurrent = createAsyncThunk(
+    'users/current',
+    async (_, thunkAPI) => {
+        const persistToken = thunkAPI.getState().contacts.token;
+        if(persistToken === null){
+            return thunkAPI.rejectWithValue()
         }
-    }
-)
-
-export const deleteContact = createAsyncThunk(
-    'contacts/deleteContact',
-    async (contactId, {rejectWithValue}) => {
+        token.set(persistToken)
         try {
-            const response = await axios.delete(`/contacts/${contactId}`);
+            const response = await axios.get('/users/current');
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.message)
+            return thunkAPI.rejectWithValue(error.message)
         }
     }
 )
