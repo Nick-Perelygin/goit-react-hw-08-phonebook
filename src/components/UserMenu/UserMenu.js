@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {fetchLogout} from 'redux/contactOperation';
+import Button from '@mui/material/Button';
 
 export default function UserMenu() {
     const dispatch = useDispatch()
@@ -9,7 +10,7 @@ export default function UserMenu() {
     <>                                                   
         <div style={{display: 'inline', marginLeft: '20px'}}>
             <p style={{display: 'inline', marginRight: '20px', fontWeight: 'bold'}}>Welcome, {name}</p>
-            <button type="button" onClick={()=>dispatch(fetchLogout())}>LogOut</button>
+            <Button type="button" onClick={()=>dispatch(fetchLogout())}>LogOut</Button>
         </div>
     </>
   )

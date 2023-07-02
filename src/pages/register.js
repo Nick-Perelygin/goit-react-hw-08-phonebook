@@ -2,6 +2,7 @@ import {useState} from 'react';
 import { useDispatch } from 'react-redux';
 import {fetchSignup} from 'redux/contactOperation';
 import { Form } from '../components/ContactForm/ContactForm.styled';
+import { Button } from '@mui/material';
 
 export default function Register() {
   const dispatch = useDispatch()
@@ -67,7 +68,7 @@ export default function Register() {
           id={password}
         />
       </label>
-      <button type="submit">Register</button>
+      <Button type="submit">Register</Button>
     </Form>
   )   
 }
