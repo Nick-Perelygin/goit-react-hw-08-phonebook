@@ -6,11 +6,11 @@ import Navigation from './Navigation';
 import { RestrictedRoute } from './RestrictedRoute';
 import {PrivateRoute} from './PrivateRoute'
 
-const Register = lazy(() => import('pages/Register'))
-const Contacts = lazy(() => import('pages/Contacts'))
-const Login = lazy(() => import('pages/Login'))
+const Register = lazy(() => import('pages/register'))
+const Contacts = lazy(() => import('pages/contacts'))
+const Login = lazy(() => import('pages/login'))
 const NotFound = lazy(() => import('pages/NotFound'))
-const Home = lazy(() => import('pages/Home'))
+const Home = lazy(() => import('pages/home'))
 
 const App = () => {
   const dispatch = useDispatch();

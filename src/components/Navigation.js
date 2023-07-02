@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import UserMenu from '../components/UserMenu/UserMenu';
+import UserMenu from 'components/UserMenu/UserMenu';
 
 const Navigation = () => {
     const isLogin = useSelector(state => state.contacts.isLogin);
