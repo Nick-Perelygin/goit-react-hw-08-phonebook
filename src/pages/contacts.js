@@ -1,10 +1,9 @@
-import { Outlet } from "react-router-dom"
 import ContactList from 'components/ContackList/ContactList'
 import ContactForm from 'components/ContactForm/ContactForm'
 import Filter from 'components/Filter/Filter'
 import {fetchContacts} from 'redux/contactOperation';
 import { useDispatch, useSelector} from 'react-redux';
-import {useEffect, Suspense} from 'react';
+import {useEffect} from 'react';
 
 const Contacts = () => {
   const dispatch = useDispatch();
@@ -31,9 +30,6 @@ const Contacts = () => {
       <Filter/>
       {isLoading && !error && <b>Request in progress...</b>}
       <ContactList/>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Outlet/>
-      </Suspense>
     </div>
   )
 };
