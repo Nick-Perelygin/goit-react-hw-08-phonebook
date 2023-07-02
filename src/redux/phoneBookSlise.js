@@ -1,7 +1,15 @@
 import {createSlice} from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
-import {fetchSignup, fetchLogin, fetchLogout, fetchCurrent} from './contactOperation'
+import {
+    fetchSignup, 
+    fetchLogin, 
+    fetchLogout, 
+    fetchCurrent, 
+    fetchContacts, 
+    addContact, 
+    deleteContact
+} from './contactOperation'
 
 const handlePending = state => state;
   
@@ -17,6 +25,8 @@ const phoneBookSlice = createSlice({
         isLogin: false,
         error: null,
         isRefreshing: false,
+        items: [],
+        isLoading: false,
     },
     extraReducers: {
         [fetchSignup.pending]: handlePending,
@@ -51,6 +61,27 @@ const phoneBookSlice = createSlice({
             state.error = null;
         },
         [fetchCurrent.rejected]: handleRejected,
+        [fetchContacts.pending]: handlePending,
+        [fetchContacts.fulfilled](state, action) {
+            state.isLoading = false;
+            state.error = null;
+            state.items = action.payload;
+        },
+        [fetchContacts.rejected]: handleRejected,
+        [addContact.pending]: handlePending,
+        [addContact.fulfilled](state, action) {
+            state.isLoading = false;
+            state.error = null;
+            state.items = [action.payload, ...state.items];
+        },
+        [addContact.rejected]: handleRejected,
+        [deleteContact.pending]: handlePending,
+        [deleteContact.fulfilled](state, action) {
+            state.isLoading = false;
+            state.error = null;
+            state.items = state.items.filter(contact => contact.id !== action.payload.id)
+        },
+        [deleteContact.rejected]: handleRejected,
     },     
 })
 

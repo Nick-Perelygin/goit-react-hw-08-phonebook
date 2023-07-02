@@ -1,7 +1,7 @@
 const Home = () => {
     return (
         <>
-            <h1>Welcome to phonebook</h1>          
+            <h1>Welcome to the phonebook,<br/> if you want to use,<br/> please register and login</h1>          
         </>
     )
 }

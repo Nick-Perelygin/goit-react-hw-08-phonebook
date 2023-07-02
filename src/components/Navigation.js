@@ -11,7 +11,7 @@ const Navigation = () => {
             <nav style={{marginBottom: '100px'}}>
                 <NavLink to="/" style={{marginRight: '20px'}}>Home</NavLink>
                 <NavLink to="register" style={{marginRight: '20px'}}>Register</NavLink>
-                <NavLink to='contacts'>Contacts</NavLink>
+                {isLogin && <NavLink to='contacts'>Contacts</NavLink>}
                 {!isLogin ? <NavLink to='login' style={{marginLeft: '20px'}}>Login</NavLink> 
                 : <UserMenu/>}
             </nav>
