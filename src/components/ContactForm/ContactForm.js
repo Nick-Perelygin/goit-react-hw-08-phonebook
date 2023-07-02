@@ -2,7 +2,7 @@ import {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {addContact} from 'redux/contactOperation';
 import { Form } from './ContactForm.styled';
-import { Alert, Button} from '@mui/material';
+import { Button} from '@mui/material';
 
 export default function ContactForm() {
   const dispatch = useDispatch()
@@ -30,7 +30,7 @@ export default function ContactForm() {
       prevContact.number.trim() === contact.number.trim()
     )
     if(filterResult)
-      Alert(`${contact.name}: is already in contacts`)
+      alert(`${contact.name}: is already in contacts`)
     else dispatch(addContact(contact))
     reset()
   };

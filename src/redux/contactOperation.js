@@ -71,11 +71,6 @@ export const fetchCurrent = createAsyncThunk(
 export const fetchContacts = createAsyncThunk(
     'contacts/fetchAll',
     async (_, thunkAPI) => {
-        const persistToken = thunkAPI.getState().contacts.token;
-        if(persistToken === null){
-            return thunkAPI.rejectWithValue()
-        }
-        token.set(persistToken)
         try {
             const response = await axios.get('/contacts');
             return response.data;
@@ -88,11 +83,6 @@ export const fetchContacts = createAsyncThunk(
 export const addContact = createAsyncThunk(
     'contacts/addContact',
     async ({name, number}, thunkAPI) => {
-        const persistToken = thunkAPI.getState().contacts.token;
-        if(persistToken === null){
-            return thunkAPI.rejectWithValue()
-        }
-        token.set(persistToken)
         try {
             const response = await axios.post('/contacts', {name, number});
             return response.data;
